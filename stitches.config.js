@@ -29,10 +29,12 @@ export const { styled, css } = createStyled({
       "@text": "#181818",
       "@textLight": "#a1a1aa",
       "@cross": "#f87171",
+      "@crossLight": "#fef2f2",
       "@check": "#34d399",
+      "@checkLight": "#ecfdf5",
     },
   },
-  breakpoints: {},
+  breakpoints: { bp0: (rule) => `@media (min-width: 780px) { ${rule} }` },
   utils: {
     m: (config) => (value) => ({
       marginTop: value,

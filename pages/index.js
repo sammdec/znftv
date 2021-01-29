@@ -12,7 +12,7 @@ import tokenQuery from "@utils/tokenQuery"
 import useSha256Hash from "@utils/useSha256Hash"
 
 export default function Home() {
-  const [tokenId, setTokenId] = useState("")
+  const [tokenId, setTokenId] = useState("131")
 
   const {
     mutate,
@@ -63,214 +63,247 @@ export default function Home() {
   }
 
   return (
-    <Box as="main" css={{ maxWidth: 740, mx: "auto", py: "@3", px: "@2" }}>
+    <Box
+      as="main"
+      css={{
+        maxWidth: 1280,
+        mx: "auto",
+        py: "@3",
+        px: "@3",
+        bp0: { display: "grid", gridTemplateColumns: "repeat(2, 1fr)" },
+      }}
+    >
       <Box
-        as="h1"
         css={{
-          fontSize: "@4",
-          fontFamily: "@body",
-          fontWeight: 700,
-          textAlign: "center",
-          m: 0,
-          mb: "@1",
+          border: "1px solid @text",
+          px: "@2",
+          py: "@2",
+          bp0: { px: "@5", py: "@5" },
         }}
       >
-        Zora NFT Validator
-      </Box>
-      <Box as="p" css={{ fontWeight: 700, fontSize: "@2" }}>
-        What is this?
-      </Box>
-      <Box as="p">
-        This tool allows you to securely authenticate the validity of a NFT
-        minted by the Zora Protocol, by checking that the content and metadata
-        files in this token are in fact the data that was originally written to
-        the token at minting.
-      </Box>
-      <Box as="p">
-        If the hashes do not match it means that at some point during the
-        lifetime of this token an owner has changed the{" "}
-        <InlineCode>tokenURI</InlineCode> or{" "}
-        <InlineCode>metadataURI</InlineCode> to point to different content.
-      </Box>
-      <Box as="p" css={{ fontWeight: 700, fontSize: "@2" }}>
-        What is the Zora Protocol?
-      </Box>
-      <Box as="p">
-        Content minted on the Zora protocol stores both a URL to the content and
-        the metadata and also a SHA-256 hash of the content and metadata, both
-        are created at minting but only the URL can be updated.
-      </Box>
-      <Box as="p">
-        This means that content and metadata locations can be moved to new
-        storage solutions but the hashes verify that the content found at those
-        locations is the same as the day it was minted. This ensures uniqueness
-        of the content stored, therefore enforcing validitiy of the provenance
-        of the content.
-      </Box>
-      <Box as="p">
-        More information about the Zora Protocol can be found by reading the{" "}
+        <Box as="img" src="/zorb.jpg" css={{ maxWidth: 80, mb: 100 }} />
         <Box
-          as="a"
-          href="https://zora.engineering/whitepaper"
-          target="_blank"
-          css={{ color: "currentcolor" }}
-        >
-          Whitepaper
-        </Box>
-      </Box>
-
-      <Box css={{ borderBottom: "1px solid @textLight", my: "@4" }} />
-
-      <Box css={{ display: "flex", alignItems: "flex-end", mb: "@3" }}>
-        <Box
+          as="h1"
           css={{
-            display: "flex",
-            flexDirection: "column",
+            fontSize: "@4",
+            fontFamily: "@body",
+            fontWeight: 600,
+            m: 0,
+            mb: "@5",
           }}
         >
-          <Box as="label" css={{ fontWeight: 700, mb: "@0" }}>
-            Enter the token ID to validate
-          </Box>
+          zNFT Validator
+        </Box>
+
+        <Box css={{ display: "flex", alignItems: "flex-end", mb: "@5" }}>
           <Box
             as="input"
-            type="search"
+            type="text"
             value={tokenId}
             onChange={handleVerify}
+            placeholder="Enter Token ID"
             css={{
-              fontFamily: "@mono",
+              appearance: "none",
+              fontFamily: "@body",
               fontSize: "@1",
-              px: "@1",
-              py: "@0",
-              border: "1px solid @text",
-              borderRadius: 5,
+              px: "@2",
+              py: "@2",
+              border: "1px solid @border",
+              backgroundColor: "@border",
+              outline: "none",
+              width: "100%",
+              "&:focus, &:active": {
+                border: "1px solid @textLight",
+              },
             }}
           />
+
+          <Box
+            as="button"
+            disabled={tokenId.length === 0}
+            css={{
+              appearance: "none",
+              display: "inline-flex",
+              border: "1px solid @text",
+              backgroundColor: "@text",
+              color: "@bg",
+              px: "@5",
+              py: "@2",
+              textDecoration: "none",
+              ml: "@2",
+              cursor: "pointer",
+              transition: "opacity 0.2s ease-in-out",
+              fontSize: "@1",
+              outline: "none",
+              "&:hover": {
+                opacity: 0.8,
+              },
+              "&:disabled": { opacity: 0.6 },
+            }}
+            onClick={() => mutate()}
+          >
+            Validate
+          </Box>
         </Box>
-        <Box
-          as="button"
-          css={{
-            appearance: "none",
-            display: "inline-flex",
-            border: "none",
-            borderRadius: 5,
-            backgroundColor: "@text",
-            color: "@bg",
-            px: "@3",
-            py: "@1",
-            textDecoration: "none",
-            fontWeight: 700,
-            ml: "@2",
-            cursor: "pointer",
-            transition: "opacity 0.2s ease-in-out",
-            "&:hover": {
-              opacity: 0.8,
-            },
-          }}
-          onClick={() => mutate()}
-        >
-          Verify
+
+        <Box as="p">
+          This tool allows you to securely authenticate the validity of a NFT
+          minted by the{" "}
+          <Box
+            as="a"
+            href="https://zora.engineering/protocol"
+            css={{ color: "currentcolor" }}
+          >
+            Zora protocol
+          </Box>
+          , by checking that the content and metadata files in this token are in
+          fact the data that was originally written to the token at minting.
+        </Box>
+        <Box as="p">
+          If the hashes do not match it means that at some point during the
+          lifetime of this token an owner has changed the{" "}
+          <InlineCode>tokenURI</InlineCode> or{" "}
+          <InlineCode>metadataURI</InlineCode> to point to different content.
         </Box>
       </Box>
-      {dataSuccess && !data?.media && (
-        <Box css={{ mb: "@3" }}>A token with this ID doesn't exist yet</Box>
-      )}
 
-      {dataSuccess && tokenId.length > 0 && data?.media && (
-        <>
-          <Box css={{ mb: "@4" }}>
-            <Box css={{ display: "flex", alignItems: "center", mb: 0 }}>
-              <Box
-                as="span"
-                css={{
-                  display: "inline-block",
-                  width: 32,
-                  mr: "@1",
-                  color: !contentSuccess
-                    ? "@textLight"
-                    : contentMatches
-                    ? "@check"
-                    : "@cross",
-                }}
-              >
-                {!contentSuccess ? (
-                  <Loading />
-                ) : contentMatches ? (
-                  <Check />
-                ) : (
-                  <Cross />
-                )}
-              </Box>
-              <Box as="p" css={{ fontWeight: 700, my: "@0" }}>
-                {!contentSuccess && "Calculating"} Content Hash
-              </Box>
-            </Box>
-
-            {!contentSuccess ? (
-              <LoadingBox css={{ mt: 0, ml: "@5" }} />
-            ) : contentMatches ? (
-              <Box as="p" css={{ mt: 0, pl: "@5" }}>
-                The contents of the <InlineCode>contentURI</InlineCode> found
-                on-chain <strong>matches</strong> the immutable{" "}
-                <InlineCode>contentHash</InlineCode> that was created at
-                minting.
-              </Box>
-            ) : (
-              <Box as="p" css={{ mt: 0, pl: "@5" }}>
-                The contents of the <InlineCode>contentURI</InlineCode> found
-                on-chain <strong>does not match</strong> the immutable{" "}
-                <InlineCode>contentHash</InlineCode> that was created at
-                minting.
-              </Box>
-            )}
+      <Box
+        css={{
+          px: "@2",
+          py: "@2",
+          display: "flex",
+          borderLeft: "1px solid @text",
+          borderTop: "none",
+          borderRight: "1px solid @text",
+          borderBottom: "1px solid @text",
+          bp0: {
+            px: "@5",
+            py: "@5",
+            borderLeft: "none",
+            borderTop: "1px solid @text",
+            borderRight: "1px solid @text",
+            borderBottom: "1px solid @text",
+          },
+        }}
+      >
+        {dataSuccess && !data?.media && (
+          <Box css={{ display: "flex", mx: "auto", my: "auto" }}>
+            A token with this ID doesn't exist yet
           </Box>
-          <Box css={{ mb: "@4" }}>
-            <Box css={{ display: "flex", alignItems: "center", mb: 0 }}>
-              <Box
-                as="span"
-                css={{
-                  display: "inline-block",
-                  width: 32,
-                  mr: "@1",
-                  color: !metadataSuccess
-                    ? "@textLight"
-                    : metadataMatches
-                    ? "@check"
-                    : "@cross",
-                }}
-              >
-                {!metadataSuccess ? (
-                  <Loading />
-                ) : metadataMatches ? (
-                  <Check />
-                ) : (
-                  <Cross />
-                )}
-              </Box>
-              <Box as="p" css={{ fontWeight: 700, my: "@0" }}>
-                {!metadataSuccess && "Calculating"} Metadata Hash
-              </Box>
-            </Box>
+        )}
 
-            {!metadataSuccess ? (
-              <LoadingBox css={{ mt: 0, ml: "@5" }} />
-            ) : metadataMatches ? (
-              <Box as="p" css={{ mt: 0, pl: "@5" }}>
-                The content of the <InlineCode>metadataURI</InlineCode> found
-                on-chain <strong>matches</strong> the immutable{" "}
-                <InlineCode>metadataHash</InlineCode> that was created at
-                minting.
-              </Box>
-            ) : (
-              <Box as="p" css={{ mt: 0, pl: "@5" }}>
-                The content of the <InlineCode>metadataURI</InlineCode> found
-                on-chain <strong>does not match</strong> the immutable
-                <InlineCode>metadataHash</InlineCode> that was created at
-                minting.
-              </Box>
-            )}
+        {!dataSuccess && !data?.media && (
+          <Box css={{ display: "flex", mx: "auto", my: "auto" }}>
+            Enter a token ID to check it's validity
           </Box>
-        </>
-      )}
+        )}
+
+        {dataSuccess && tokenId.length > 0 && data?.media && (
+          <Box
+            css={{
+              display: "flex",
+              flexDirection: "column",
+              mx: "auto",
+              my: "auto",
+            }}
+          >
+            <Box css={{ mb: "@4" }}>
+              <Box css={{ display: "flex", alignItems: "center", mb: 0 }}>
+                <Box
+                  as="span"
+                  css={{
+                    display: "inline-block",
+                    width: 32,
+                    mr: "@1",
+                    color: !contentSuccess
+                      ? "@textLight"
+                      : contentMatches
+                      ? "@check"
+                      : "@cross",
+                  }}
+                >
+                  {!contentSuccess ? (
+                    <Loading />
+                  ) : contentMatches ? (
+                    <Check />
+                  ) : (
+                    <Cross />
+                  )}
+                </Box>
+                <Box as="p" css={{ fontWeight: 600, my: "@0" }}>
+                  {!contentSuccess && "Calculating"} Content Hash
+                </Box>
+              </Box>
+
+              {!contentSuccess ? (
+                <LoadingBox css={{ mt: 0, ml: "@5" }} />
+              ) : contentMatches ? (
+                <Box as="p" css={{ mt: 0, pl: "@5" }}>
+                  The contents of the <InlineCode>contentURI</InlineCode> found
+                  on-chain <strong>matches</strong> the immutable{" "}
+                  <InlineCode>contentHash</InlineCode> that was created at
+                  minting.
+                </Box>
+              ) : (
+                <Box as="p" css={{ mt: 0, pl: "@5" }}>
+                  The contents of the <InlineCode>contentURI</InlineCode> found
+                  on-chain <strong>does not match</strong> the immutable{" "}
+                  <InlineCode>contentHash</InlineCode> that was created at
+                  minting.
+                </Box>
+              )}
+            </Box>
+            <Box css={{}}>
+              <Box css={{ display: "flex", alignItems: "center", mb: 0 }}>
+                <Box
+                  as="span"
+                  css={{
+                    display: "inline-block",
+                    width: 32,
+                    mr: "@1",
+                    color: !metadataSuccess
+                      ? "@textLight"
+                      : metadataMatches
+                      ? "@check"
+                      : "@cross",
+                  }}
+                >
+                  {!metadataSuccess ? (
+                    <Loading />
+                  ) : metadataMatches ? (
+                    <Check />
+                  ) : (
+                    <Cross />
+                  )}
+                </Box>
+                <Box as="p" css={{ fontWeight: 600, my: "@0" }}>
+                  {!metadataSuccess && "Calculating"} Metadata Hash
+                </Box>
+              </Box>
+
+              {!metadataSuccess ? (
+                <LoadingBox css={{ mt: 0, ml: "@5" }} />
+              ) : metadataMatches ? (
+                <>
+                  <Box as="p" css={{ mt: 0, pl: "@5" }}>
+                    The content of the <InlineCode>metadataURI</InlineCode>{" "}
+                    found on-chain <strong>matches</strong> the immutable{" "}
+                    <InlineCode>metadataHash</InlineCode> that was created at
+                    minting.
+                  </Box>
+                </>
+              ) : (
+                <Box as="p" css={{ mt: 0, pl: "@5" }}>
+                  The content of the <InlineCode>metadataURI</InlineCode> found
+                  on-chain <strong>does not match</strong> the immutable
+                  <InlineCode>metadataHash</InlineCode> that was created at
+                  minting.
+                </Box>
+              )}
+            </Box>
+          </Box>
+        )}
+      </Box>
 
       <Footer />
     </Box>
