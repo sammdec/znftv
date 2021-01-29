@@ -202,104 +202,105 @@ export default function Home() {
           <Box
             css={{
               display: "flex",
-              flexDirection: "column",
-              mx: "auto",
+              width: "100%",
               my: "auto",
             }}
           >
-            <Box css={{ mb: "@4" }}>
-              <Box css={{ display: "flex", alignItems: "center", mb: 0 }}>
-                <Box
-                  as="span"
-                  css={{
-                    display: "inline-block",
-                    width: 32,
-                    mr: "@1",
-                    color: !contentSuccess
-                      ? "@textLight"
-                      : contentMatches
-                      ? "@check"
-                      : "@cross",
-                  }}
-                >
-                  {!contentSuccess ? (
-                    <Loading />
-                  ) : contentMatches ? (
-                    <Check />
-                  ) : (
-                    <Cross />
-                  )}
+            <Box css={{ width: "100%" }}>
+              <Box css={{ mb: "@4", width: "100%" }}>
+                <Box css={{ display: "flex", alignItems: "center", mb: 0 }}>
+                  <Box
+                    as="span"
+                    css={{
+                      display: "inline-block",
+                      width: 32,
+                      mr: "@1",
+                      color: !contentSuccess
+                        ? "@textLight"
+                        : contentMatches
+                        ? "@check"
+                        : "@cross",
+                    }}
+                  >
+                    {!contentSuccess ? (
+                      <Loading />
+                    ) : contentMatches ? (
+                      <Check />
+                    ) : (
+                      <Cross />
+                    )}
+                  </Box>
+                  <Box as="p" css={{ fontWeight: 600, my: "@0" }}>
+                    {!contentSuccess && "Calculating"} Content Hash
+                  </Box>
                 </Box>
-                <Box as="p" css={{ fontWeight: 600, my: "@0" }}>
-                  {!contentSuccess && "Calculating"} Content Hash
-                </Box>
-              </Box>
 
-              {!contentSuccess ? (
-                <LoadingBox css={{ mt: 0, ml: "@5" }} />
-              ) : contentMatches ? (
-                <Box as="p" css={{ mt: 0, pl: "@5" }}>
-                  The contents of the <InlineCode>contentURI</InlineCode> found
-                  on-chain <strong>matches</strong> the immutable{" "}
-                  <InlineCode>contentHash</InlineCode> that was created at
-                  minting.
-                </Box>
-              ) : (
-                <Box as="p" css={{ mt: 0, pl: "@5" }}>
-                  The contents of the <InlineCode>contentURI</InlineCode> found
-                  on-chain <strong>does not match</strong> the immutable{" "}
-                  <InlineCode>contentHash</InlineCode> that was created at
-                  minting.
-                </Box>
-              )}
-            </Box>
-            <Box css={{}}>
-              <Box css={{ display: "flex", alignItems: "center", mb: 0 }}>
-                <Box
-                  as="span"
-                  css={{
-                    display: "inline-block",
-                    width: 32,
-                    mr: "@1",
-                    color: !metadataSuccess
-                      ? "@textLight"
-                      : metadataMatches
-                      ? "@check"
-                      : "@cross",
-                  }}
-                >
-                  {!metadataSuccess ? (
-                    <Loading />
-                  ) : metadataMatches ? (
-                    <Check />
-                  ) : (
-                    <Cross />
-                  )}
-                </Box>
-                <Box as="p" css={{ fontWeight: 600, my: "@0" }}>
-                  {!metadataSuccess && "Calculating"} Metadata Hash
-                </Box>
+                {!contentSuccess ? (
+                  <LoadingBox css={{ mt: 0, ml: "@5" }} />
+                ) : contentMatches ? (
+                  <Box as="p" css={{ mt: 0, pl: "@5" }}>
+                    The contents of the <InlineCode>contentURI</InlineCode>{" "}
+                    found on-chain <strong>matches</strong> the immutable{" "}
+                    <InlineCode>contentHash</InlineCode> that was created at
+                    minting.
+                  </Box>
+                ) : (
+                  <Box as="p" css={{ mt: 0, pl: "@5" }}>
+                    The contents of the <InlineCode>contentURI</InlineCode>{" "}
+                    found on-chain <strong>does not match</strong> the immutable{" "}
+                    <InlineCode>contentHash</InlineCode> that was created at
+                    minting.
+                  </Box>
+                )}
               </Box>
+              <Box css={{ flex: 1 }}>
+                <Box css={{ display: "flex", alignItems: "center", mb: 0 }}>
+                  <Box
+                    as="span"
+                    css={{
+                      display: "inline-block",
+                      width: 32,
+                      mr: "@1",
+                      color: !metadataSuccess
+                        ? "@textLight"
+                        : metadataMatches
+                        ? "@check"
+                        : "@cross",
+                    }}
+                  >
+                    {!metadataSuccess ? (
+                      <Loading />
+                    ) : metadataMatches ? (
+                      <Check />
+                    ) : (
+                      <Cross />
+                    )}
+                  </Box>
+                  <Box as="p" css={{ fontWeight: 600, my: "@0" }}>
+                    {!metadataSuccess && "Calculating"} Metadata Hash
+                  </Box>
+                </Box>
 
-              {!metadataSuccess ? (
-                <LoadingBox css={{ mt: 0, ml: "@5" }} />
-              ) : metadataMatches ? (
-                <>
+                {!metadataSuccess ? (
+                  <LoadingBox css={{ mt: 0, ml: "@5" }} />
+                ) : metadataMatches ? (
+                  <>
+                    <Box as="p" css={{ mt: 0, pl: "@5" }}>
+                      The content of the <InlineCode>metadataURI</InlineCode>{" "}
+                      found on-chain <strong>matches</strong> the immutable{" "}
+                      <InlineCode>metadataHash</InlineCode> that was created at
+                      minting.
+                    </Box>
+                  </>
+                ) : (
                   <Box as="p" css={{ mt: 0, pl: "@5" }}>
                     The content of the <InlineCode>metadataURI</InlineCode>{" "}
-                    found on-chain <strong>matches</strong> the immutable{" "}
+                    found on-chain <strong>does not match</strong> the immutable
                     <InlineCode>metadataHash</InlineCode> that was created at
                     minting.
                   </Box>
-                </>
-              ) : (
-                <Box as="p" css={{ mt: 0, pl: "@5" }}>
-                  The content of the <InlineCode>metadataURI</InlineCode> found
-                  on-chain <strong>does not match</strong> the immutable
-                  <InlineCode>metadataHash</InlineCode> that was created at
-                  minting.
-                </Box>
-              )}
+                )}
+              </Box>
             </Box>
           </Box>
         )}
