@@ -171,8 +171,11 @@ export default function Home() {
           Verify
         </Box>
       </Box>
+      {dataSuccess && !data?.media && (
+        <Box css={{ mb: "@3" }}>A token with this ID doesn't exist yet</Box>
+      )}
 
-      {dataSuccess && tokenId.length > 0 && (
+      {dataSuccess && tokenId.length > 0 && data?.media && (
         <>
           <Box css={{ mb: "@4" }}>
             <Box css={{ display: "flex", alignItems: "center", mb: 0 }}>
