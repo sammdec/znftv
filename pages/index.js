@@ -12,7 +12,7 @@ import tokenQuery from "@utils/tokenQuery"
 import useSha256Hash from "@utils/useSha256Hash"
 
 export default function Home() {
-  const [tokenId, setTokenId] = useState("131")
+  const [tokenId, setTokenId] = useState("")
 
   const {
     mutate,
