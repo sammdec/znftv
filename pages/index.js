@@ -163,7 +163,8 @@ export default function Home() {
           If the hashes do not match it means that at some point during the
           lifetime of this token an owner has changed the{" "}
           <InlineCode>tokenURI</InlineCode> or{" "}
-          <InlineCode>metadataURI</InlineCode> to point to different content.
+          <InlineCode>tokenMetadataURI</InlineCode> to point to different
+          content.
         </Box>
       </Box>
 
@@ -239,17 +240,17 @@ export default function Home() {
                   <LoadingBox css={{ mt: 0, ml: "@5" }} />
                 ) : contentMatches ? (
                   <Box as="p" css={{ mt: 0, pl: "@5" }}>
-                    The contents of the <InlineCode>contentURI</InlineCode>{" "}
-                    found on-chain <strong>matches</strong> the immutable{" "}
-                    <InlineCode>contentHash</InlineCode> that was created at
-                    minting.
+                    The contents of the <InlineCode>tokenURI</InlineCode> found
+                    on-chain <strong>matches</strong> the immutable{" "}
+                    <InlineCode>tokenContentHashes</InlineCode> that was created
+                    at minting.
                   </Box>
                 ) : (
                   <Box as="p" css={{ mt: 0, pl: "@5" }}>
-                    The contents of the <InlineCode>contentURI</InlineCode>{" "}
-                    found on-chain <strong>does not match</strong> the immutable{" "}
-                    <InlineCode>contentHash</InlineCode> that was created at
-                    minting.
+                    The contents of the <InlineCode>tokenURI</InlineCode> found
+                    on-chain <strong>does not match</strong> the immutable{" "}
+                    <InlineCode>tokenContentHashes</InlineCode> that was created
+                    at minting.
                   </Box>
                 )}
               </Box>
@@ -286,18 +287,19 @@ export default function Home() {
                 ) : metadataMatches ? (
                   <>
                     <Box as="p" css={{ mt: 0, pl: "@5" }}>
-                      The content of the <InlineCode>metadataURI</InlineCode>{" "}
-                      found on-chain <strong>matches</strong> the immutable{" "}
-                      <InlineCode>metadataHash</InlineCode> that was created at
-                      minting.
+                      The content of the{" "}
+                      <InlineCode>tokenMetadataURI</InlineCode> found on-chain{" "}
+                      <strong>matches</strong> the immutable{" "}
+                      <InlineCode>tokenMetadataHashes</InlineCode> that was
+                      created at minting.
                     </Box>
                   </>
                 ) : (
                   <Box as="p" css={{ mt: 0, pl: "@5" }}>
-                    The content of the <InlineCode>metadataURI</InlineCode>{" "}
+                    The content of the <InlineCode>tokenMetadataURI</InlineCode>{" "}
                     found on-chain <strong>does not match</strong> the immutable
-                    <InlineCode>metadataHash</InlineCode> that was created at
-                    minting.
+                    <InlineCode>tokenMetadataHashes</InlineCode> that was
+                    created at minting.
                   </Box>
                 )}
               </Box>
