@@ -54,6 +54,8 @@ export default function Home() {
 
   const handleVerify = (e) => {
     const { value } = e.target
+
+    console.log(value)
     setTokenId(value)
     if (value.length === 0) {
       dataReset()
@@ -95,7 +97,14 @@ export default function Home() {
           zNFT Validator
         </Box>
 
-        <Box css={{ display: "flex", alignItems: "flex-end", mb: "@5" }}>
+        <Box
+          as="form"
+          css={{ display: "flex", alignItems: "flex-end", mb: "@5" }}
+          onSubmit={(e) => {
+            e.preventDefault()
+            mutate()
+          }}
+        >
           <Box
             as="input"
             type="text"
